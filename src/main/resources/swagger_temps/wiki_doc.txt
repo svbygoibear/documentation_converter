@@ -1,0 +1,56 @@
+='''Fings Objects'''=
+==Location==
+The Location entity locates the Fings or the Fings it associated with/any other entity.
+<br>
+Example Path:
+<br>
+<code>xxx/woolworthshotfoods/v1/locations</code>
+===Data Model===
+{| class="wikitable"
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Column''' 
+| colspan="1" align="center" style="background:#f0f0f0;"|''' Description''' 
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Req'd''' 
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Field Type''' 
+| colspan="1" align="center" style="background:#f0f0f0;"|''' Allowable Values/Field Length''' 
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Sample Value''' 
+|- 
+| id|| The system generated UUID of this operator|| true|| UUID || || 
+|- 
+| name||This is the English name of the operator. ||Yes||string||100 characters|| InterCape (Pty) Ltd 
+|- 
+| description||This is the description for the operator. ||No||string||100 characters|| InterCape Long Distance Bus service 
+|- 
+| LongDescription||This is a more elaborate description of the station. ||No||string||1000 characters|| 
+|- 
+| status || This fields shows if the operator is in use. || No || boolean ||Yes,No|| Yes 
+|- 
+| hostsUUID || The UUID of the hosts object for this operator. || Yes || UUID || UUID || 
+|}
+
+==Location==
+The Location entity locates the Fings or the Fings it associated with/any other entity.
+<br>
+Example Path:
+<br>
+<code>xxx/woolworthshotfoods/v1/locations</code>
+===Data Model===
+{| class="wikitable"
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Column'''
+| colspan="1" align="center" style="background:#f0f0f0;"|''' Description'''
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Req'd'''
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Field Type'''
+| colspan="1" align="center" style="background:#f0f0f0;"|''' Allowable Values/Field Length'''
+| colspan="1" align="center" style="background:#f0f0f0;"|'''Sample Value'''
+|-
+| id|| The system generated UUID of this operator|| true|| UUID || ||
+|-
+| name||This is the English name of the operator. ||Yes||string||100 characters|| InterCape (Pty) Ltd
+|-
+| description||This is the description for the operator. ||No||string||100 characters|| InterCape Long Distance Bus service
+|-
+| LongDescription||This is a more elaborate description of the station. ||No||string||1000 characters||
+|-
+| status || This fields shows if the operator is in use. || No || boolean ||Yes,No|| Yes
+|-
+| hostsUUID || The UUID of the hosts object for this operator. || Yes || UUID || UUID ||
+|}

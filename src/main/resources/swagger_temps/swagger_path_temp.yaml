@@ -1,0 +1,588 @@
+  /$&OBJECTPATH$&:
+    get:
+      summary: GET $&OBJECTPLURAL$&
+      description: GET will retrieve $&OBJECTPLURAL$&. The retrieval can be limited by the
+        query parameters as defined. Multiple $&OBJECTPLURAL$& can be retrieved at the
+        same time.
+      operationId: $&OBJECTGET$&
+      parameters:
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/offset'
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: (**) OK. The call was succesful and will respond with an array of requested entity.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/$&OBJECT$&'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer  
+        '302':
+          description: >-
+            FOUND. 'A common redirect response; you can GET the resource at the
+            URL found in the entity's response header.'
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+        '304':
+          description: >-
+            NOT MODIFIED. Your client’s cached version of the representation is
+            still up-to-date.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            NOT FOUND. We could not locate the resource based on the specified
+            URL.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+            
+    post:
+      summary: POST $&OBJECTPLURAL$&
+      description: >-
+        The POST call will create one or more than one (depending on the body of
+        the POST) $&OBJECTPLURAL$&.
+      operationId: $&POSTOBJECT$&
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      parameters:
+        - name: $&OBJECTPLURAL$&
+          in: body
+          description: >-
+            The body of the POST has to be in JSON and the model must match the
+            model for the $&OBJECTPLURAL$& entity.
+          required: true
+          schema:
+            type: object
+            $ref: '#/definitions/$&OBJECT$&'
+      responses:
+        '200':
+          description: (**) OK. The call was succesful and the desired entity/s was created.
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+        '201':
+          description: >-
+            (**) CREATED. The request has been fulfilled and has resulted in one or more new 
+            resources being created.
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+        '400':
+          description: >-
+            BAD REQUEST. The data given in the call failed validation. Inspect
+            the response body for details.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            NOT FOUND. We could not locate the resource based on the specified
+            URL.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '503':
+          description: >-
+            SERVICE UNAVAILABLE. We are temporarily unable to service the
+            request. Please wait for a bit and try again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes'   
+            
+  /$&OBJECTPATH/$&{uuid}:
+    get:
+      summary: GET $&OBJECTPLURAL$& by UUID
+      description: GET will retrieve a single $&OBJECTPLURAL$& entity with the matching UUID.
+      parameters:
+        - name: uuid
+          in: path
+          description: The uuid of the entity to return.
+          required: true
+          type: string
+          format: string
+      operationId: $&OBJECTGETUUID$&
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      responses:
+        '200':
+          description: >-
+            (**) OK. The call was succesful and will retrieve the entity with
+            the specified UUID.
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer
+        '400':
+          description: >-
+            BAD REQUEST. The data given in the call failed validation. Inspect
+            the response body for details.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            NOT FOUND. We could not locate the resource based on the specified
+            URL.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '503':
+          description: >-
+            SERVICE UNAVAILABLE. We are temporarily unable to service the
+            request. Please wait for a bit and try again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+            
+    delete:
+      summary: DELETE $&OBJECTSMALL$&
+      description: >-
+        DELETE will delete a single $&OBJECTSMALL$& entity with the matching UUID.
+      parameters:
+        - name: uuid
+          in: path
+          description: The number of entities returned.
+          required: true
+          type: string
+          format: string
+      operationId: $&DELETEOBJECT$&
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      responses:
+        '204':
+          description: >-
+            (**) NO CONTENT. The server has successfully fulfilled the request and 
+            that there is no additional content to send in the response payload body.
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer              
+        '400':
+          description: >-
+            BAD REQUEST. The data given in the call failed validation. Inspect
+            the response body for details.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            NOT FOUND. We could not locate the resource based on the specified
+            URL.
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes'        
+            
+    patch:
+      summary: PATCH $&OBJECTSMALL$&
+      description: >-
+        PATCH will update the details of a specific $&OBJECTSMALL$& with the
+        matching UUID.
+      parameters:
+        - name: uuid
+          in: path
+          description: The number of entities returned.
+          required: true
+          type: string
+          format: string
+        - name: $&OBJECTPLURAL$&
+          in: body
+          description: >-
+            The body of the PATCH has to be in JSON and the model must match the
+            model for the $&OBJECTPLURAL$& entity.
+          required: true
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+      operationId: patchUserByUUID
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      responses:
+        '200':
+          description: >-
+            (**) OK. The call was succesful and the entity with the matching UUID
+            was updated.
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer            
+        '302':
+          description: >-
+            FOUND. 'A common redirect response; you can GET the resource at the
+            URL found in the entities response header.'
+          schema:
+            $ref: '#/definitions/ErrorCodes'   
+        '400':
+          description: >-
+            (**) BAD REQUEST. The data given in the call failed validation. Inspect
+            the response body for details.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            (**) NOT FOUND. We could not locate the resource based on the specified
+            URL.
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '503':
+          description: >-
+            SERVICE UNAVAILABLE. We are temporarily unable to service the
+            request. Please wait for a bit and try again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes' 
+            
+    put:
+      summary: PUT $&OBJECTPLURAL$& 
+      description: >-
+        PUT will create a new instance of the $&OBJECTSMALL$& entity or overwrite it
+        if it exists. This is, in contrast to a PATCH being a partial update of
+        a $&OBJECTSMALL$& entity, the creation a new $&OBJECTSMALL$& entity.
+      operationId: putUserById
+      tags:
+        - $&OBJECT$&
+      security:
+        - key: []
+      parameters:
+        - name: uuid
+          in: path
+          description: The number of entities returned.
+          required: true
+          type: string
+          format: string      
+        - name: $&OBJECTPLURAL$&
+          in: body
+          description: >-
+            The body of the PUT has to be in JSON and the model must match the
+            model for the $&OBJECTPLURAL$& entity.
+          required: true
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+      responses:
+        '200':
+          description: >-
+            (**) OK. The call was succesful and the entity with the matching UUID
+            was replaced.
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'
+          headers:
+            X-Rate-Limit-Limit:
+              description: The number of allowed requests in the current period
+              type: integer
+            X-Rate-Limit-Remaining:
+              description: The number of remaining requests in the current period
+              type: integer
+            X-Rate-Limit-Reset:
+              description: The number of seconds left in the current period
+              type: integer   
+        '302':
+          description: >-
+            FOUND. 'A common redirect response; you can GET the resource at the
+            URL found in the entities response header.'
+          schema:
+            $ref: '#/definitions/$&OBJECT$&'   
+        '400':
+          description: >-
+            BAD REQUEST. The data given in the call failed validation. Inspect
+            the response body for details.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '401':
+          description: >-
+            (**) UNAUTHORIZED. Authentication credentials are required to access the
+            resource. All requests must be authenticated.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '403':
+          description: >-
+            (**) FORBIDDEN. The supplied authentication credentials are not
+            sufficient to access the resource.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '404':
+          description: >-
+            (**) NOT FOUND. We could not locate the resource based on the specified
+            URL.
+        '426':
+          description: >-
+            UPGRADE REQUIRED. The server refuses to perform the request using the 
+            current protocol but might be willing to do so after the client upgrades 
+            to a different protocol.
+          schema:
+            $ref: '#/definitions/ErrorCodes'  
+        '498':
+          description: >-
+            TOKEN EXPIRED INVALID. This indicates an expired or otherwise invalid token.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        '429':
+          description: >-
+            TOO MANY REQUESTS. Your application is sending too many simultaneous
+            requests.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '500':
+          description: >-
+            (**) SERVER ERROR. We could not create or update the resource. Please try
+            again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+        '503':
+          description: >-
+            SERVICE UNAVAILABLE. We are temporarily unable to service the
+            request. Please wait for a bit and try again.
+          schema:
+            $ref: '#/definitions/ErrorCodes'            
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorCodes'
+
+
+            
+                            

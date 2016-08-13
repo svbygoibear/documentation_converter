@@ -1,0 +1,55 @@
+	Location
+		type: object
+		description: The Location entity locates the Fings or the Fings it associated with/any other entity.
+		required:
+			- id
+			- name
+			- hostsUUID 
+
+		properties:
+			 id:
+				type: UUID 
+				description: The system generated UUID of this operator
+			 name:
+				type:string
+				description:This is the English name of the operator. 
+			 description:
+				type:string
+				description:This is the description for the operator. 
+			 LongDescription:
+				type:string
+				description:This is a more elaborate description of the station. 
+			 status :
+				type: boolean 
+				description: This fields shows if the operator is in use. 
+			 hostsUUID :
+				type: UUID 
+				description: The UUID of the hosts object for this operator. 
+
+	Location
+		type: object
+		description: The Location entity locates the Fings or the Fings it associated with/any other entity.
+		required:
+			- id
+			- name
+			- hostsUUID 
+
+		properties:
+			 id:
+				type: UUID 
+				description: The system generated UUID of this operator
+			 name:
+				type:string
+				description:This is the English name of the operator. 
+			 description:
+				type:string
+				description:This is the description for the operator. 
+			 LongDescription:
+				type:string
+				description:This is a more elaborate description of the station. 
+			 status :
+				type: boolean 
+				description: This fields shows if the operator is in use. 
+			 hostsUUID :
+				type: UUID 
+				description: The UUID of the hosts object for this operator. 
