@@ -13,23 +13,25 @@ import scala.tools.nsc.io._
 
 object Main extends App {
   val logger = LoggerFactory.getLogger("DocumentationConverterLogger")
-  //File paths
+
+  // File paths
+  // ToDo: Add implicit file paths for fromFileToOptionList and fromFileToOptionList
   val filePath = "/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/swagger_path_temp.yaml"
   val filePathDocs = "/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/wiki_doc.txt"
 
-  //List[String] from file path
+  // List[String] from file path
   val swagger = fromFileToOptionList(filePath)
   val wiki = fromFileToOptionList(filePathDocs)
 
-  //gets all the data model indexes and their names
+  // Gets all the data model indexes and their names
   val indexAndNames = startIndexAndText(wiki, "==")
 
-  //this value is used to create all the data models
+  // This value is used to create all the data models
   implicit val allModels: Option[List[DataModel]] = Some(buildDataModels(wiki, indexAndNames).get.toList)
   //list of all the lines to be written to a file for the swagger data model definitions
   val swaggerDataModels = createObjects
 
-  //mapping for placeholders in the HTTP header options, used implicitly when calling genObjSwagger
+  // Mapping for placeholders in the HTTP header options, used implicitly when calling genObjSwagger
   implicit val swaggyMap: Map[String, String => String] = Map[String, String => String](
     ("$&OBJECTPATH$&", doObjectPath),
     ("$&OBJECTPLURAL$&", doObjectPlural),
@@ -42,7 +44,7 @@ object Main extends App {
     ("$&PUTOBJECT$&", doObjectPut)
   )
 
-  //methods for each definition to be mapped
+  // Methods for each definition to be mapped
   def doObjectPath(s: String) = s"${s.toLowerCase}s"
   def doObjectPlural(s: String) = s"${s}s"
   def doObjectGet(s: String) = s"${s}Get"
@@ -53,9 +55,8 @@ object Main extends App {
   def doObjectPatch(s: String) = s"${s}PatchByUUID"
   def doObjectPut(s: String) = s"${s}PutByUUID"
 
-  //creates http swagger
+  // Creates http swagger
   File("/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/rr.yaml").writeAll(genObjSwagger(swagger).mkString("\n"))
-  //creates data models
+  // Creates data models
   File("/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/dm.yaml").writeAll(swaggerDataModels.get.flatten.mkString("\n"))
-
 }
