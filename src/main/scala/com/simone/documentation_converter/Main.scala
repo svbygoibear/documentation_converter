@@ -14,7 +14,7 @@ import scala.tools.nsc.io._
 object Main extends App {
   val logger = LoggerFactory.getLogger("DocumentationConverterLogger")
 
-  // File paths
+  // File paths...
   // ToDo: Add implicit file paths for fromFileToOptionList and fromFileToOptionList
   val filePath = "/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/swagger_path_temp.yaml"
   val filePathDocs = "/Users/simonevanbuuren/git/FF General/ff_documentation-converter/src/main/resources/swagger_temps/wiki_doc.txt"
